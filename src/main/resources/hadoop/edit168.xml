@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EDITS>
+    <EDITS_VERSION>-63</EDITS_VERSION>
+    <RECORD>
+        <OPCODE>OP_START_LOG_SEGMENT</OPCODE>
+        <DATA>
+            <TXID>166</TXID>
+        </DATA>
+    </RECORD>
+    <RECORD>
+        <OPCODE>OP_TIMES</OPCODE>
+        <DATA>
+            <TXID>167</TXID>
+            <LENGTH>0</LENGTH>
+            <PATH>/user/root/hadoop-2.8.5.tar.gz</PATH>
+            <MTIME>-1</MTIME>
+            <ATIME>1540827493641</ATIME>
+        </DATA>
+    </RECORD>
+    <RECORD>
+        <OPCODE>OP_END_LOG_SEGMENT</OPCODE>
+        <DATA>
+            <TXID>168</TXID>
+        </DATA>
+    </RECORD>
+</EDITS>

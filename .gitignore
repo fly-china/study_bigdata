@@ -1,0 +1,12 @@
+ml
+*/target/
+*.class
+.idea
+out/*
+target
+*/$*
+*/ag_task_access.iml
+*/*.iml
+*.iml
+*.DS_Store
+.svn/*

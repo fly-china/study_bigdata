@@ -1,0 +1,36 @@
+A:B,C,D,F,E,O
+B:A,C,E,K
+C:F,A,D,I
+D:A,E,F,L
+E:B,C,D,M,L
+F:A,B,C,D,E,O,M
+G:A,C,D,E,F
+H:A,C,D,E,O
+I:A,O
+J:B,O
+K:A,C,D
+L:D,E,F
+M:E,F,G
+O:A,H,I,J
+
+多对多的关系
+数据库：学生       课程        成绩表
+学生表和课程表的自然连接
+
+A 1  100  
+A 2  90
+
+A : B
+A : C
+B : C
+
+
+
+A	I,K,C,B,G,F,H,O,D,
+B	A,F,J,E,
+C	A,B
+D	A,B
+
+
+A-B  C,D
+
