@@ -1,4 +1,4 @@
-package com.lpf.bigdata.current.queue;
+package com.lpf.interview.current.queue;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

@@ -17,7 +17,7 @@ public class ReflectTest1 {
         try {
             List list= new ArrayList();
 
-            Class<?> clazz = Class.forName("com.lpf.bigdata.current.queue.TestBlockingQueueProducer");
+            Class<?> clazz = Class.forName("com.lpf.interview.current.queue.TestBlockingQueueProducer");
             System.out.println(clazz);
             Constructor<?> constructor = clazz.getConstructor(BlockingQueue.class);
 

@@ -1,4 +1,4 @@
-package com.lpf.bigdata.current;
+package com.lpf.interview.current;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

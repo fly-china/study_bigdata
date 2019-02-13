@@ -16,4 +16,6 @@ public class BossImpl implements IBoss {
         System.out.println("BossImpl.getClothesNumById | 品牌=" + id + "的衣服原价为：1000" );
         return 1000;
     }
+
+
 }

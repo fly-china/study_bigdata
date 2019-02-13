@@ -21,5 +21,6 @@ public class ProxyTest {
         IBoss proxy2 = ProxyBoss.getProxy(100, IBoss.class, BossImpl.class);
         System.out.println(proxy.getClothesNumById("NIKE"));
 
+
     }
 }

@@ -1,6 +1,5 @@
-package com.lpf.bigdata.current;
+package com.lpf.interview.current;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
