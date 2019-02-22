@@ -17,7 +17,15 @@ public class HelloWorldUDF  {
 
     public static void main(String[] args) {
 //        HelloWorldUDF UDF = new HelloWorldUDF();
+        int[] arr = new int[3];
+        arr[2] =1;
 
-        System.out.println("Hello: " + args[0]);
+        ++arr[2];
+        "aaa".length();
+        System.out.println(arr[2]);
+
+        arr[2] += 10;
+        System.out.println(arr[2]);
+
     }
 }

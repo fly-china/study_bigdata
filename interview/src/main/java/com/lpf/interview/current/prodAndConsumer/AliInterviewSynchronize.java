@@ -16,7 +16,7 @@ public class AliInterviewSynchronize {
     public static volatile Boolean isC = false;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int nums = 10;
 
         for (int i = 0; i < nums; i++) {
