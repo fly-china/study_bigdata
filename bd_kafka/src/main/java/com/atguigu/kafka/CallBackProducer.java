@@ -12,7 +12,7 @@ public class CallBackProducer {
 	public static void main(String[] args) throws InterruptedException {
 		Properties props = new Properties();
 		// Kafka服务端的主机名和端口号
-		props.put("bootstrap.servers", "linux01:9092,linux02:9092,linux03:9092");
+		props.put("bootstrap.servers", "hadoop01:9092,hadoop02:9092,hadoop03:9092");
 		// 等待所有副本节点的应答
 		props.put("acks", "all");
 		// 消息发送最大尝试次数
@@ -34,7 +34,32 @@ public class CallBackProducer {
 
 		for (int i = 0; i < 50; i++) {
 			Thread.sleep(500);
-			kafkaProducer.send(new ProducerRecord<String, String>("test1", "hh" + i), new Callback() {
+			// 未指定key和partition，随机分区
+//			kafkaProducer.send(new ProducerRecord<String, String>("first", "hh" + i), new Callback() {
+//				@Override
+//				public void onCompletion(RecordMetadata metadata, Exception exception) {
+//
+//					if (metadata != null) {
+//
+//						System.out.println(metadata.partition() + "---" + metadata.offset());
+//					}
+//				}
+//			});
+
+			// 指定key，不指定partition，按照key的hash，会发送至固定的某一分区
+//			kafkaProducer.send(new ProducerRecord<String, String>("test1", "aa" ,"hh" + i), new Callback() {
+//				@Override
+//				public void onCompletion(RecordMetadata metadata, Exception exception) {
+//
+//					if (metadata != null) {
+//
+//						System.out.println(metadata.partition() + "---" + metadata.offset());
+//					}
+//				}
+//			});
+
+			// 指定partition，key不会再生效，会发送到指定的part分区
+			kafkaProducer.send(new ProducerRecord<String, String>("first2", 1,"aaa","hh" + i), new Callback() {
 				@Override
 				public void onCompletion(RecordMetadata metadata, Exception exception) {
 
