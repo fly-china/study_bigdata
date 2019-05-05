@@ -27,5 +27,7 @@ public class UserVO {
 
     private Integer age;
 
+    private String remark;
+
 
 }

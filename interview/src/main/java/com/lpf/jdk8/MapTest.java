@@ -134,6 +134,69 @@ public class MapTest {
                 .mapToInt(UserVO::getAge)
                 .collect(Collectors.toList());
         System.out.println(collect3);*/
-
     }
+
+
+    @Test
+    public void testOptional() {
+
+        Optional<UserVO> first = userVOList.stream()
+                .filter(userVO -> userVO.getUserSex() == 1)
+                .map(userVO -> {
+                    userVO.setAge(100);
+                    return userVO;
+                }).findFirst()
+                .filter(userVO -> userVO.getAge() >= 100) // 如果有值并且满足断言条件返回包含该值的Optional，否则返回空Optional。
+                ;
+
+        first.ifPresent(userVO -> userVO.setRemark("我是这条gai最靓的"));
+        Optional<UserVO> userVO1 = first.filter(userVO -> userVO.getAge() != 100);
+
+
+        if (first.isPresent()) {
+            System.out.println("匹配数据存在,结果为：" + first.get().toString());
+
+        } else {
+            System.out.println("匹配数据不存在");
+        }
+
+        System.out.println("----------下面测试of()----------");
+        UserVO userVO2 = null;
+        Optional<UserVO> second = Optional.ofNullable(userVO2);
+//        Optional<UserVO> second = Optional.of(userVO2); // 对象为null时，构建会抛npe
+        System.out.println(second.isPresent());
+
+
+        System.out.println("-----------下面测试orElse()----------");
+        Optional<String> empty = Optional.ofNullable(null);
+        Optional<String> name = Optional.of("lpf");
+
+        System.out.println(empty.orElse("Default name"));
+        System.out.println(name.orElse("Default name"));
+
+        String defaultName = "Jack";
+        UserVO tempUser = userVOList.get(0);
+
+        // orElseGet和orElse的区别在于orElseGet方法可以接受Supplier接口的实现用来生成默认值
+        System.out.println(empty.orElseGet(() -> tempUser.getUserName().toUpperCase()));
+        System.out.println(name.orElseGet(() -> userVO1.get().getUserName()));
+    }
+
+
+    @Test
+    public void testForeach() {
+
+        System.out.println("遍历前：" + JSONObject.toJSONString(userVOList));
+        userVOList.stream().forEach(userVO -> userVO.setAge(1000));
+        System.out.println("遍历后：" + JSONObject.toJSONString(userVOList));
+    }
+
+    @Test
+    public void testCount() {
+        long num = userVOList.stream()
+                .filter(userVO -> Objects.equals(userVO.getUserName(), "老大1"))
+                .count();
+        System.out.println("符合条件个数：" + num);
+    }
+
 }
