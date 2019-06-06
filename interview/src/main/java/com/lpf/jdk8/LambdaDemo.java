@@ -5,6 +5,7 @@ import com.google.common.base.Strings;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -138,4 +139,6 @@ public class LambdaDemo {
         System.out.println("是否包含b？，result=" + isKnown.test("b"));
         System.out.println("是否包含d？，result=" + isKnown.test("d"));
     }
+
+
 }
