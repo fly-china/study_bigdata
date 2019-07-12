@@ -1,4 +1,4 @@
-package com.lpf.jdk8;
+package com.lpf.jdk8.lambda;
 
 import com.google.common.base.Function;
 import com.google.common.base.Strings;

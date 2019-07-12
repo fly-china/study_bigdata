@@ -1,4 +1,4 @@
-package com.lpf.jdk8;
+package com.lpf.jdk8.lambda;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
