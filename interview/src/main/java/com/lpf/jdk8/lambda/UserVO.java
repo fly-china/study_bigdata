@@ -1,9 +1,6 @@
-package com.lpf.jdk8;
+package com.lpf.jdk8.lambda;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * 用户类
@@ -15,13 +12,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserBO {
+@Builder
+public class UserVO {
 
     private String userId;
 
     private String userName;
 
-    private Integer sex;
+    private Integer userSex;
+
+    private Integer age;
+
+    private String remark;
 
 
 }

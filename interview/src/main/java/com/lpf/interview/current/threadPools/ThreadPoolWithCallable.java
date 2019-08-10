@@ -1,4 +1,4 @@
-package com.lpf.interview.current;
+package com.lpf.interview.current.threadPools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,25 +32,14 @@ public class ThreadPoolWithCallable {
 
         for ( int i = 0; i < 5; i++) {
 
-//            Future<String> submit = threadPool.submit(new Callable<String>() {
-//                @Override
-//                public String call() throws Exception {
-//                    System.out.println(Thread.currentThread().getName() + "-->正在进行工作");
-//                    Thread.sleep(5000);
-//                    System.out.println(Thread.currentThread().getName() + "-->工作完成");
-//
-//                    return "b-----" + Thread.currentThread().getName();
-//                }
-//            });
-
             int finalI = i;
             Future<String> submit = threadPool2.submit(() -> {
 
                         System.out.println(Thread.currentThread().getName() + "-->正在进行工作" + finalI);
                         Thread.sleep(3000);
-                        if (finalI == 3) {
-                            int ine = 1 / 0;
-                        }
+//                        if (finalI == 3) {
+//                            int ine = 1 / 0;
+//                        }
                         System.out.println(Thread.currentThread().getName() + "-->工作完成");
 
                         return "b-----" + Thread.currentThread().getName();
