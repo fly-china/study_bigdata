@@ -1,5 +1,7 @@
 package com.lpf.interview.current.prodAndConsumer;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * 三个线程顺序循环输出10次(synchronized实现)
  * 要求：
@@ -29,6 +31,14 @@ public class AliInterviewSynchronize {
             t_c.start();
 
         }
+
+        String a = "abc";
+        a.equals("abc");
+        ConcurrentHashMap map = new ConcurrentHashMap<>();
+        map .put("name", "lpf");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("222");
 
 
     }
