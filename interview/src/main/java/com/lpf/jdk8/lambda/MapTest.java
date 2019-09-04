@@ -161,6 +161,15 @@ public class MapTest {
                 .mapToInt(UserVO::getAge)
                 .collect(Collectors.toList());
         System.out.println(collect3);*/
+
+        OptionalInt optionalInt = userVOList.stream().mapToInt(UserVO::getAge).min();
+        if(optionalInt.isPresent()){
+            System.out.println("年龄最小值为：" + optionalInt.getAsInt());
+        }
+
+//        UserVO userVO = userVOList.stream().min((u1, u2) -> Integer.compare(u1.getAge(), u2.getAge())).get();
+        UserVO userVO = userVOList.stream().min(Comparator.comparingInt(UserVO::getAge)).get();
+        System.out.println("年龄最小的用户信息为：" + userVO.toString());
     }
 
 
