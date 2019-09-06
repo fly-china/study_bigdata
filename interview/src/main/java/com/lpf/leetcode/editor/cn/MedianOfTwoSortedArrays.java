@@ -23,22 +23,55 @@
 
 package com.lpf.leetcode.editor.cn;
 
-public class MedianOfTwoSortedArrays{
-  public static void main(String[] args) {
-	   Solution solution = new MedianOfTwoSortedArrays().new Solution();
-	   
-  }
-  
-    
+import java.util.Objects;
 
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+public class MedianOfTwoSortedArrays {
+    public static void main(String[] args) {
+        Solution solution = new MedianOfTwoSortedArrays().new Solution();
+        int[] nums1 = {1};
+        int[] nums2 = null;
+        double medianSortedArrays = solution.findMedianSortedArrays(nums1, nums2);
+        System.out.println(medianSortedArrays);
 
-        return 0.2d;
     }
-}
+
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+            int nums1Length = Objects.isNull(nums1) ? 0 : nums1.length;
+            int nums2Length = Objects.isNull(nums2) ? 0 : nums2.length;
+            int totalNum = nums1Length + nums2Length;
+
+            int[] newNum = new int[totalNum];
+            int aIndex = 0;
+            int bIndex = 0;
+            for (int i = 0; i < newNum.length; i++) {
+                if (aIndex == nums1Length) {
+                    newNum[i] = nums2[bIndex++];
+                    continue;
+                }
+                if (bIndex == nums2Length) {
+                    newNum[i] = nums1[aIndex++];
+                    continue;
+                }
+
+                if (nums1[aIndex] < nums2[bIndex]) {
+                    newNum[i] = nums1[aIndex++];
+                } else {
+                    newNum[i] = nums2[bIndex++];
+                }
+            }
+
+            // 是否为奇数
+            if (totalNum % 2 == 0) {
+                return (newNum[totalNum / 2] + newNum[(totalNum / 2) - 1]) / 2d;
+            } else {
+                return newNum[(totalNum - 1) / 2];
+            }
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    
+
 }
