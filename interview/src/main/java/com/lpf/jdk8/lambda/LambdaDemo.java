@@ -1,11 +1,11 @@
 package com.lpf.jdk8.lambda;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,6 +50,42 @@ import java.util.stream.Stream;
  * @create 2019-04-04 18:28
  **/
 public class LambdaDemo {
+
+
+    @Test
+    public void testGuavaTypeMaps() {
+        /**
+         * 双括号”{{}}”,用来初始化，使代码简洁易读。
+         * 第一层括弧实际是定义了一个匿名内部类 (Anonymous Inner Class);
+         * 第二层括弧实际上是一个实例初始化块 (instance initializer block)，这个块在内部匿名类构造时被执行;
+         *
+         * 缺点：
+         *      此种方式是匿名内部类的声明方式，所以引用中持有着外部类的引用。所以当时串行化这个集合时外部类也会被不知不觉的串行化，当外部类没有实现serialize接口时，就会报错
+         *      使用new HashMap(map)，这样就可以正常初始化了。
+         */
+        Map<String, String> map = new HashMap<String, String>() {
+            {
+                put("List", "Lists.newArrayList()");
+                put("Map", "Maps.newHashMap()");
+                put("Set", "Sets.newHashSet()");
+            }
+        };
+        System.out.println(JSONObject.toJSONString(map));
+        Map<String, String> newMap = new HashMap<>(map);
+        System.out.println(JSONObject.toJSONString(newMap));
+
+        System.out.println("---------------------");
+
+        List<String> lists = new ArrayList<String>(){
+            {
+                add("a");
+                add("b");
+                add("c");
+            }
+        };
+        System.out.println(JSONObject.toJSONString(lists));
+
+    }
 
     List<String> names = new ArrayList<>();
 
@@ -138,6 +174,7 @@ public class LambdaDemo {
 
         System.out.println("是否包含b？，result=" + isKnown.test("b"));
         System.out.println("是否包含d？，result=" + isKnown.test("d"));
+
     }
 
 

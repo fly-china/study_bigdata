@@ -27,11 +27,16 @@ import java.util.Objects;
 
 /**
  * 思路： 最大利润 =  max（前几天最大利润， 今日价格 - 前几天最低价格）
- *
+ * 找波谷之后最高的波峰
  */
 public class BestTimeToBuyAndSellStock {
     public static void main(String[] args) {
         Solution solution = new BestTimeToBuyAndSellStock().new Solution();
+//        int[] prices = {7,1,5,3,6,4};
+//        int[] prices = {77,6,4,3,1};
+        int[] prices = {7, 2, 5, 1, 3};
+        int maxProfit = solution.maxProfit(prices);
+        System.out.println("最大利润为：" + maxProfit);
 
     }
 
@@ -44,10 +49,19 @@ public class BestTimeToBuyAndSellStock {
             }
 
             int maxProfit = 0;
+            int minPrice = Integer.MAX_VALUE;
+            for (int i = 0; i < prices.length; i++) {
+                if (prices[i] < minPrice) {
+                    minPrice = prices[i];
+                } else {
+                    if (prices[i] - minPrice > maxProfit) {
+                        maxProfit = prices[i] - minPrice;
+                    }
+                }
 
+            }
 
-
-            return 0;
+            return maxProfit;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
