@@ -1,4 +1,4 @@
-package com.lpf.jvm;
+package com.lpf.jol;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

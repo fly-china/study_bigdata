@@ -22,6 +22,13 @@
     </properties>
 
     <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.openjdk.jol/jol-core -->
+            <!-- java object layout -->
+            <dependency>
+                <groupId>org.openjdk.jol</groupId>
+                <artifactId>jol-core</artifactId>
+                <version>0.9</version>
+            </dependency>
 
         <!-- 操作PDF -->
         <dependency>
