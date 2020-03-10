@@ -24,8 +24,10 @@ public class JolDto {
          * 空对象Object o = new Object(), 默认占用内存大小为：16字节
          * 静态变量，不属于实例数据大小
          */
-        JolDto o = new JolDto();
+//        JolDto o = new JolDto();
+        Object o = new Object();
         synchronized (o) {
+            // -XX:BiasedLockingStartupDelay=0 偏向锁延时
             String layout = ClassLayout.parseInstance(o).toPrintable();
             System.out.println(layout);
         }
