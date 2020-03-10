@@ -21,7 +21,7 @@ public class ScheduledPoolsDemo {
 
 
     ScheduledExecutorService pools1 = Executors.newSingleThreadScheduledExecutor();
-    ScheduledExecutorService pools2 = Executors.newScheduledThreadPool(1);
+    ScheduledExecutorService pools2 = Executors.newScheduledThreadPool(5);
     ScheduledExecutorService threadPool = Executors.newScheduledThreadPool(5);
 
 
