@@ -1,10 +1,12 @@
 package com.atguigu.kafka;
 
-import java.util.Map;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 
+import java.util.Map;
+
 public class CustomPartitioner implements Partitioner {
+
 
 	@Override
 	public void configure(Map<String, ?> configs) {

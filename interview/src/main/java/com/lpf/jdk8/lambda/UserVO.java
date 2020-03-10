@@ -1,11 +1,6 @@
 package com.lpf.jdk8.lambda;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import java.util.Date;
+import lombok.*;
 
 /**
  * 用户类
@@ -17,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class UserVO {
 
     private String userId;
