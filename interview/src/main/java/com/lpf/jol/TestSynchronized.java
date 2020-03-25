@@ -8,9 +8,15 @@ import org.openjdk.jol.info.ClassLayout;
  **/
 public class TestSynchronized {
 
-    static Object lock = new Object();
+//    static Object lock = new Object();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
+        TestSynchronized lock = new TestSynchronized();
+//        Object lock = new Object();
+//        lock.toString();
+        System.out.println(Integer.toBinaryString(lock.hashCode()));
+
 
         System.out.println("加锁前**********************");
         String layout0 = ClassLayout.parseInstance(lock).toPrintable();
@@ -18,6 +24,7 @@ public class TestSynchronized {
 
         System.out.println("***********加锁时***********");
         synchronized (lock) {
+            // -XX:BiasedLockingStartupDelay=0 偏向锁延时
             String layout1 = ClassLayout.parseInstance(lock).toPrintable();
             System.out.println(layout1);
         }
@@ -26,4 +33,5 @@ public class TestSynchronized {
         String layout2 = ClassLayout.parseInstance(lock).toPrintable();
         System.out.println(layout2);
     }
+
 }
