@@ -3,7 +3,7 @@ package com.lpf.jol;
 import org.openjdk.jol.info.ClassLayout;
 
 /**
- * @author lipengfei
+ * @author lipengfeiR
  * @create 2020-03-08 14:06
  **/
 public class JolDto {
