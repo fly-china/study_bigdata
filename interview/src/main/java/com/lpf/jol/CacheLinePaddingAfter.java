@@ -1,5 +1,7 @@
 package com.lpf.jol;
 
+import sun.misc.Contended;
+
 /**
  * 测试缓存行cache line对齐，填充对齐后的效果
  * 稳定后平均耗时：140ms
@@ -19,19 +21,22 @@ package com.lpf.jol;
  **/
 public class CacheLinePaddingAfter {
 
+    // 定义7个long类型变量，进行缓存行填充
     private static class Padding{
         public volatile long p1, p2, p3, p4, p5, p6, p7;
     }
 
-    private static class T extends Padding{
+    private static class Entity{
+        // 使用@sun.misc.Contended注解，必须添加此参数：-XX:-RestrictContended
+         @Contended
         public volatile long x = 0L;
     }
 
-    public static T[] arr = new T[2];
+    public static Entity[] arr = new Entity[2];
 
     static {
-        arr[0] = new T();
-        arr[1] = new T();
+        arr[0] = new Entity();
+        arr[1] = new Entity();
     }
 
     public static void main(String[] args) throws InterruptedException {
