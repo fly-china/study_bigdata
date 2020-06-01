@@ -35,14 +35,14 @@ public class Producer01 {
         Message message01 = new Message(topic, tag01, "msgKey01", ("说你爱我01" + System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
         Message message02 = new Message(topic, tag02, "msgKey02", ("说你爱我02" + System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
         List<Message> messageList = Lists.newArrayList(message01, message02);
-        // 一、可靠同步发送：直至发送mq到broker成功。内部有失败重试机制，默认两次
+        // 一、可靠同步发送：直至发送mq到broker成功。内部有失败重试机制，默认两次,间隔3000毫秒
         SendResult sendResult01 = mqProducer.send(messageList);
         System.out.println("同步消息-发送成功，发送结果为：" + JSONObject.toJSONString(sendResult01));
         Thread.sleep(500);
 
 
         Message message03 = new Message(topic, tag01, "msgKey01-async", ("async-说你爱我01" + System.currentTimeMillis()).getBytes(StandardCharsets.UTF_8));
-        // 二、可靠异步发送：直至发送mq到broker成功。内部有失败重试机制，默认两次
+        // 二、可靠异步发送：直至发送mq到broker成功。内部有失败重试机制，默认两次,间隔3000毫秒
         mqProducer.send(message03, new SendCallback() {
             @Override
             public void onSuccess(SendResult sendResult) {
@@ -53,7 +53,7 @@ public class Producer01 {
             public void onException(Throwable e) {
                 System.out.println("异步发送MQ消息失败，原因：" + e.getMessage());
             }
-        });
+        },5000);
         System.out.println("异步消息已发送，等待响应结果...........");
         Thread.sleep(1000);
 
