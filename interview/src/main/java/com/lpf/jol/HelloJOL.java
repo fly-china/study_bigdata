@@ -10,7 +10,7 @@ import org.openjdk.jol.info.ClassLayout;
  **/
 public class HelloJOL {
 
-    private boolean flag1 = true;
+    private volatile boolean flag1 = true;
     private Boolean flag2 = true;
 //    private boolean flag3 = true;
 //    private boolean flag4 = true;

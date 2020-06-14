@@ -10,6 +10,7 @@ public class TestSynchronized {
 
 //    static Object lock = new Object();
 
+
     public static void main(String[] args) throws InterruptedException {
 
         TestSynchronized lock = new TestSynchronized();
