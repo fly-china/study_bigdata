@@ -1,6 +1,7 @@
 package com.lpf.interview.map;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author lipengfei
@@ -14,6 +15,9 @@ public class MapStruct {
         HashMap dataMap = new HashMap();
         dataMap.put("name", "lpf");
 
+        ConcurrentHashMap map = new ConcurrentHashMap();
+        map.put("name", "lpf");
+        map.get("name");
     }
 
 
