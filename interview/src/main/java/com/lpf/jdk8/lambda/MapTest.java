@@ -30,6 +30,12 @@ public class MapTest {
         u1.setUserName("老大");
         u1.setUserSex(1);
         u1.setAge(11);
+        u1 = UserVO.builder()
+                .userId("1")
+                .userName("老大的builder链式编程")
+                .age(11)
+                .userSex(1).build();
+
         u2.setUserId("2");
         u2.setUserName("老二");
         u2.setUserSex(0);

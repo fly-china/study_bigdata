@@ -19,8 +19,8 @@ public class RestoreIpAddresses {
         Solution solution = new RestoreIpAddresses().new Solution();
 
 //        String a = "25525511135";
-        String a = "010010";
-//        String a = "1111";
+//        String a = "010010";
+        String a = "12345";
         List<String> list = solution.restoreIpAddresses(a);
         Optional.ofNullable(list)
                 .orElse(new ArrayList<>())
@@ -44,12 +44,12 @@ public class RestoreIpAddresses {
          * @param partResult 已生成的部分
          * @param result     全局存放集合
          * @param tailStr    未生成的部分
-         * @param counter    技术器
+         * @param counter    计数器
          */
         private void getIpPart(String partResult, List<String> result, String tailStr, int counter) {
             if (counter == 4) {
                 if (Objects.isNull(tailStr) || tailStr.length() < 1) {
-                    result.add(partResult.substring(1));
+                    result.add(partResult.substring(1));// 去掉拼接字符串最前面的SPLIT_STR分隔符
                 } else {
                     return;
                 }
@@ -57,6 +57,9 @@ public class RestoreIpAddresses {
 
 
             for (int i = 3; i > 0; i--) {
+                if(tailStr.length() < 1){
+                    break;
+                }
                 if (tailStr.length() < i) {
                     continue;
                 }
@@ -79,7 +82,7 @@ public class RestoreIpAddresses {
             if (str.charAt(0) == '0') {
                 return m == 1;
             }
-            return Integer.valueOf(str) <= 255;
+            return Integer.parseInt(str) <= 255;
 
         }
 
