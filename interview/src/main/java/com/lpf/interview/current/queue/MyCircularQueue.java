@@ -16,13 +16,16 @@ public class MyCircularQueue {
 
     private List<Integer> data;
 
-    private int p_start  = -1;
+    private int p_start = -1;
     private int p_end = -1;
     private int capacity = 0;
 
-    public MyCircularQueue(){}
+    public MyCircularQueue() {
+    }
 
-    /** Initialize your data structure here. Set the size of the queue to be k. */
+    /**
+     * Initialize your data structure here. Set the size of the queue to be k.
+     */
     public MyCircularQueue(int k) {
         this.data = new ArrayList<Integer>(k);
         this.capacity = k;
@@ -30,31 +33,35 @@ public class MyCircularQueue {
 //        p_end = -1;
     }
 
-    /** Insert an element into the circular queue. Return true if the operation is successful. */
+    /**
+     * Insert an element into the circular queue. Return true if the operation is successful.
+     */
     public boolean enQueue(int value) {
-        if(isFull())
+        if (isFull())
             return false;
-        if(isEmpty())
-            p_start =0;
-        if(++p_end == capacity)
+        if (isEmpty())
+            p_start = 0;
+        if (++p_end == capacity)
             p_end = 0;
-        if(data.size() >= capacity){
+        if (data.size() >= capacity) {
             data.set(p_end, value);
-        }else{
+        } else {
             data.add(p_end, value);
         }
         return true;
     }
 
-    /** Delete an element from the circular queue. Return true if the operation is successful. */
+    /**
+     * Delete an element from the circular queue. Return true if the operation is successful.
+     */
     public boolean deQueue() {
-        if(isEmpty())
+        if (isEmpty())
             return false;
 
-        if(p_start == p_end){
+        if (p_start == p_end) {
             p_start = -1;
             p_end = -1;
-        }else{
+        } else {
 //            if(++p_start == capacity)
 //                p_start = 0;
             p_start = (p_start + 1) % capacity;
@@ -62,28 +69,36 @@ public class MyCircularQueue {
         return true;
     }
 
-    /** Get the front item from the queue. */
+    /**
+     * Get the front item from the queue.
+     */
     public int Front() {
-        if(isEmpty())
+        if (isEmpty())
             return -1;
         return data.get(p_start);
     }
 
-    /** Get the last item from the queue. */
+    /**
+     * Get the last item from the queue.
+     */
     public int Rear() {
-        if(isEmpty())
+        if (isEmpty())
             return -1;
         return data.get(p_end);
     }
 
-    /** Checks whether the circular queue is empty or not. */
+    /**
+     * Checks whether the circular queue is empty or not.
+     */
     public boolean isEmpty() {
         return (p_start == -1 || p_end == -1);
     }
 
-    /** Checks whether the circular queue is full or not. */
+    /**
+     * Checks whether the circular queue is full or not.
+     */
     public boolean isFull() {
-        if((p_start + capacity - p_end) % capacity ==1)
+        if ((p_start + capacity - p_end) % capacity == 1)
             return true;
         return false;
     }
@@ -112,17 +127,17 @@ public class MyCircularQueue {
 
         MyCircularQueue queue = new MyCircularQueue(30);
         // 30个数
-        int[] example = {71,32,1,32,8,6,8,3,56,41,14,6,25,44,84,59,4,40,11,94,72,19,20,58,54,65,59,26,10,14};
+        int[] example = {71, 32, 1, 32, 8, 6, 8, 3, 56, 41, 14, 6, 25, 44, 84, 59, 4, 40, 11, 94, 72, 19, 20, 58, 54, 65, 59, 26, 10, 14};
 
-        for (int i = 0 ; i <30; i++){
+        for (int i = 0; i < 30; i++) {
             queue.enQueue(example[i]);
         }
 
-        for (int i = 0 ; i < 7; i++){
-          boolean flag =   queue.deQueue();
-          if(!flag){
-              System.out.println("出队列失败");
-          }
+        for (int i = 0; i < 7; i++) {
+            boolean flag = queue.deQueue();
+            if (!flag) {
+                System.out.println("出队列失败");
+            }
         }
 
 

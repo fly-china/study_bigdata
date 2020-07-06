@@ -1,4 +1,4 @@
-package com.lpf.interview.current;
+package com.lpf.interview.current.reentrantLock;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -15,19 +15,15 @@ public class MyReentranLock {
 
         int processors = Runtime.getRuntime().availableProcessors();
         System.out.println("cpu数量为：" + processors);
-        new Thread(){
-                public void run(){
-                    test.read(Thread.currentThread());
-                    test.write(Thread.currentThread());
-                }
-        }.start();
+        new Thread(() -> {
+            test.read(Thread.currentThread());
+            test.write(Thread.currentThread());
+        }).start();
 
-        new Thread(){
-            public void run(){
-                test.read(Thread.currentThread());
-                test.write(Thread.currentThread());
-            }
-        }.start();
+        new Thread(() -> {
+            test.read(Thread.currentThread());
+            test.write(Thread.currentThread());
+        }).start();
 
         Thread.sleep(10000);
     }

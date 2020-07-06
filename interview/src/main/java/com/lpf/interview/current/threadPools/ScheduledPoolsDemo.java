@@ -46,6 +46,7 @@ public class ScheduledPoolsDemo {
             System.out.println(LocalDateTime.now().format(formatter) + "任务执行..." + Thread.currentThread().getName());
             try {
                 Thread.sleep(3000);
+//                Thread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
