@@ -26,9 +26,6 @@
 
 package com.lpf.leetcode.editor.cn;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ClimbingStairs {
 
     /**
@@ -54,8 +51,10 @@ public class ClimbingStairs {
 //                return n;
 //            }
 //
-//            // 效率最慢的解法
+//            // 一、效率最慢的解法
 ////            return climbStairs(n - 1) + climbStairs(n - 2);
+
+              // 二、解法2
 //            Map<Integer, Integer> climbMap = new HashMap<>(n);
 //            climbMap.put(1, 1);
 //            climbMap.put(2, 2);

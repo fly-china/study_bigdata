@@ -10,6 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class MyBlcokingQueue {
 
     public static void main(String[] args) throws InterruptedException {
+//        Executors.newFixedThreadPool()
         BlockingQueue queue = new LinkedBlockingQueue<>(2);
 
         TestBlockingQueueConsumer consumer = new TestBlockingQueueConsumer(queue);
@@ -23,12 +24,12 @@ public class MyBlcokingQueue {
         Thread.sleep(3000);
 
         for (int i = 0; i < 3; i++) {
-            new Thread(producer, "****Producer" + (i + 1)).start();
+            new Thread(producer, "****A-Producer" + (i + 1)).start();
         }
 
 
         for (int i = 0; i < 3; i++) {
-            new Thread(producer, "****Producer" + (i + 1)).start();
+            new Thread(producer, "****B-Producer" + (i + 1)).start();
         }
     }
 
