@@ -70,11 +70,11 @@ public class BinaryTreeInorderTraversal {
             if (root == null) {
                 return res;
             }
-            while(stack.size()>0 || root!=null) {
+            while (stack.size() > 0 || root != null) {
                 //不断往左子树方向走，每走一次就将当前节点保存到栈中
                 //这是模拟递归的调用
-                if(root!=null) {
-                    stack.add(root);
+                if (root != null) {
+                    stack.push(root);
                     root = root.left;
                     //当前节点为空，说明左边走到头了，从栈中弹出节点并保存
                     //然后转向右边节点，继续上面整个过程
@@ -94,6 +94,8 @@ public class BinaryTreeInorderTraversal {
 //  5
 
     //leetcode submit region end(Prohibit modification and deletion)
+
+
     // 递归方式
     class Solution_A {
         public List<Integer> inorderTraversal(TreeNode root) {
