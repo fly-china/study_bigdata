@@ -35,6 +35,8 @@ public class NAryTreePreorderTraversal {
 */
 
     class Solution {
+
+        // 先序遍历：中，左，右
         public List<Integer> preorder(Node root) {
             List<Integer> resList = new ArrayList<>();
             if (root == null) return resList;
