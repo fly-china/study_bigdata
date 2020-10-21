@@ -21,10 +21,18 @@ package com.lpf.leetcode.editor.cn;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * [46]-全排列
+ * 优质答案分析：https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liweiw/
+ *
+ * @author lipengfei
+ * @date 2020-10-20 11:29:24
+ **/
 public class Permutations {
+
     public static void main(String[] args) {
         Solution solution = new Permutations().new Solution();
-        int[] nums = {1,2,3};
+        int[] nums = {1, 2, 3};
         List<List<Integer>> lists = solution.permute(nums);
         System.out.println("全排列数量：" + lists.size());
         for (List<Integer> list : lists) {
@@ -35,9 +43,59 @@ public class Permutations {
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
+
     class Solution {
         public List<List<Integer>> permute(int[] nums) {
-            // TODO
+
+            List<List<Integer>> res = new ArrayList<>();
+            if (nums != null && nums.length > 0) {
+                // 对数组中对应index的数字，标记是否被使用过
+                boolean[] useFlag = new boolean[nums.length];
+                backtrack(nums, 0, res, new ArrayList<Integer>(), useFlag);
+            }
+
+            return res;
+        }
+
+        /**
+         * @param nums     数组
+         * @param depth    已经使用的数字数量
+         * @param res      最终结果集
+         * @param elemList 组合-集合
+         * @param useFlag  标记数组
+         */
+        private void backtrack(int[] nums, int depth, List<List<Integer>> res, List<Integer> elemList, boolean[] useFlag) {
+            if (nums.length == depth) {
+                res.add(new ArrayList<>(elemList));
+                return;
+            }
+
+            for (int i = 0; i < nums.length; i++) {
+                if (!useFlag[i]) {
+                    // 该数字未经被使用过，进入下述逻辑
+
+                    // 1、做选择
+                    // 标记该数字已被使用
+                    useFlag[i] = true;
+                    elemList.add(nums[i]);
+
+                    // 2、backtrack(路径, 选择列表)
+                    backtrack(nums, depth + 1, res, elemList, useFlag);
+
+                    // 3、撤销逻辑
+                    useFlag[i] = false; // 撤销逻辑
+                    elemList.remove(elemList.size() - 1);// 从数组中移除
+                }
+
+            }
+        }
+    }
+
+    //leetcode submit region end(Prohibit modification and deletion)
+    class Solution_SLOW {
+
+        //
+        public List<List<Integer>> permute(int[] nums) {
             List<List<Integer>> res = new ArrayList<>();
             if (nums != null && nums.length > 0) {
                 backtrack(nums, 0, res, new ArrayList<Integer>());
@@ -46,18 +104,31 @@ public class Permutations {
             return res;
         }
 
-        private void backtrack(int[] nums, int index, List<List<Integer>> res, List<Integer> elemList) {
-            if (nums.length == index) {
-                res.add(elemList);
+        /**
+         * 省略了boolean[] useFlag数组进行的标记, 但是使用elemList.contains(nums[i])判断，影响效率
+         *
+         * @param nums     数组
+         * @param depth    已经使用的数字数量
+         * @param res      最终结果集
+         * @param elemList 组合-集合
+         */
+        private void backtrack(int[] nums, int depth, List<List<Integer>> res, List<Integer> elemList) {
+            if (nums.length == depth) {
+                res.add(new ArrayList<>(elemList));
                 return;
             }
 
-            elemList.add(nums[index]);
-            backtrack(nums, index + 1, res, elemList);
+            for (int i = 0; i < nums.length; i++) {
+                if (!elemList.contains(nums[i])) {
+                    // 该数字未经被使用过，进入下述逻辑
 
+                    elemList.add(nums[i]);
+                    backtrack(nums, depth + 1, res, elemList);
+                    elemList.remove(elemList.size() - 1);
+                }
+
+            }
         }
     }
-//leetcode submit region end(Prohibit modification and deletion)
-
 
 }
