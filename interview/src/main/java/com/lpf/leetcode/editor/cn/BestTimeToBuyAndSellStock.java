@@ -26,6 +26,7 @@ package com.lpf.leetcode.editor.cn;
 import java.util.Objects;
 
 /**
+ * [121]-买卖股票的最佳时机
  * 思路： 最大利润 =  max（前几天最大利润， 今日价格 - 前几天最低价格）
  * 找波谷之后最高的波峰
  */
@@ -43,6 +44,7 @@ public class BestTimeToBuyAndSellStock {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public int maxProfit(int[] prices) {
             if (Objects.isNull(prices) || prices.length < 2) {
                 return 0;
@@ -65,55 +67,6 @@ public class BestTimeToBuyAndSellStock {
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
-class Solution_B {
-    /**
-     * 思路：每一个波谷之后的波峰，作为一次购买和售出的时机，获得一次利润的机会
-     */
-//        public int maxProfit(int[] prices) {
-//            if (Objects.isNull(prices) || prices.length < 2) {
-//                return 0;
-//            }
-//
-//            int i = 0;
-//            int sumProfit = 0;
-//            int valley = 0; // 波谷
-//            int peek = 0; // 波峰
-//            while (i < prices.length - 1) {
-//                while (i < prices.length - 1 && prices[i] >= prices[i + 1]) {
-//                    // 下划线
-//                    i++;
-//                }
-//                valley = prices[i];
-//                while (i < prices.length - 1 && prices[i] <= prices[i + 1]) {
-//                    i ++;
-//                }
-//                peek = prices[i];
-//
-//                sumProfit += peek - valley;
-//            }
-//
-//            return sumProfit;
-//        }
 
-    /**
-     * 只要今天比昨天价格高，就算持有股票增值，存在利润空间。可计入最高利润。
-     * 直到今天价格 < 昨天价格，说明股票再跌，此时手中不持有股票，才不会影响现有利润
-     */
-    public int maxProfit(int[] prices) {
-        if (Objects.isNull(prices) || prices.length < 2) {
-            return 0;
-        }
-
-        int sumProfit = 0;
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] > prices[i - 1]) {
-                sumProfit += prices[i] - prices[i - 1];
-            }
-
-        }
-
-        return sumProfit;
-    }
-}
 
 }
