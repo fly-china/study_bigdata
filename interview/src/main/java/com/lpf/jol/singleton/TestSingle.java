@@ -19,7 +19,7 @@ public class TestSingle {
 
         for (int i = 0; i < 10000; i++) {
             threadPool.submit(() -> {
-                DcSingleton.getInstance().getValue();
+//                DcSingleton.getInstance().getValue();
             });
         }
 
