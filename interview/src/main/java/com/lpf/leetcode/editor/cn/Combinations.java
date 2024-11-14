@@ -18,6 +18,8 @@
 
 package com.lpf.leetcode.editor.cn;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,11 +28,45 @@ public class Combinations {
     public static void main(String[] args) {
         Solution solution = new Combinations().new Solution();
         List<List<Integer>> combine = solution.combine(4, 2);
-//        System.out.println(JSONObject.toJSON(combine));
+        System.out.println(JSONObject.toJSON(combine));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        // 2024.11.14
+
+        List<List<Integer>> res = new ArrayList<>();
+        LinkedList<Integer> path = new LinkedList<>();
+
+        public List<List<Integer>> combine(int n, int k) {
+            backtrack(n, k, 1);
+            return res;
+        }
+
+        private void backtrack(int n, int k, int startIdx) {
+            if (path.size() >= k) { // 终止条件
+                res.add(new ArrayList<>(path));  // 收集结果
+                return;
+            }
+
+            /*
+              for (int i = startIdx; i <= n; i++)
+              剪枝优化成下面：
+              1、已经选择的元素个数：path.size();
+              2、还需要的元素个数为: k - path.size();
+              3、在集合n中至多要从该起始位置 : n - (k - path.size()) + 1，开始遍历
+             */
+            for (int i = startIdx; i <= (n - (k - path.size()) + 1); i++) {
+                path.add(i);
+                backtrack(n, k, i + 1);
+                path.removeLast();
+            }
+        }
+    }
+
+    //leetcode submit region end(Prohibit modification and deletion)
+
+    class Solution2 {
         /**
          * f（10,3）= f(9,3) + f（9,2）...10
          * f（4,2）= f(3,2) + f（3,1）...4
@@ -56,13 +92,12 @@ public class Combinations {
                 //递归调用，继续下一个分支
                 backtrack(list, n, k - 1, i + 1, tempList);
                 //从当前分支跳到下一个分支的时候要把之前添加的值给移除
-                System.out.println( tempList.toString());
+                System.out.println(tempList.toString());
                 tempList.remove(tempList.size() - 1);
             }
         }
 
     }
-//leetcode submit region end(Prohibit modification and deletion)
 
     class Solution_RECUR {
         /**
