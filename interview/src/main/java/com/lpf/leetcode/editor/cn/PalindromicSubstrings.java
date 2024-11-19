@@ -37,22 +37,37 @@ package com.lpf.leetcode.editor.cn;
 
 /**
  * [647]-回文子串
- * 
  */
-public class PalindromicSubstrings{
-  public static void main(String[] args) {
-	   Solution solution = new PalindromicSubstrings().new Solution();
-	   
-  }
-  
-    //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public int countSubstrings(String s) {
-        // TODO
-        return 0;
+public class PalindromicSubstrings {
+    public static void main(String[] args) {
+        Solution solution = new PalindromicSubstrings().new Solution();
+
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+    class Solution {
+        public int countSubstrings(String s) {
+            // TODO：DP 问题，先暂时不做
+            return 0;
+        }
+
+
+        public boolean isPalindromic(String str) {
+            if (str == null) return false;
+            if (str.isEmpty()) return true;
+
+            int start = 0;
+            int end = str.length() - 1;
+            while (start < end) {
+                if (str.charAt(start++) != str.charAt(end--)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
-    
+
 }

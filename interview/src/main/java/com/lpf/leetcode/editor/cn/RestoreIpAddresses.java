@@ -9,10 +9,11 @@
 
 package com.lpf.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Joiner;
+import netscape.javascript.JSObject;
+
+import java.util.*;
 
 public class RestoreIpAddresses {
     public static void main(String[] args) {
@@ -20,16 +21,72 @@ public class RestoreIpAddresses {
 
 //        String a = "25525511135";
 //        String a = "010010";
-        String a = "12345";
-        List<String> list = solution.restoreIpAddresses(a);
-        Optional.ofNullable(list)
-                .orElse(new ArrayList<>())
-                .forEach(System.out::println);
+        String a = "101023";
+
+        System.out.println(JSONObject.toJSON(solution.restoreIpAddresses(a)));
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
+    // add by 2024/11/18
     class Solution {
+
+        private List<String> res = new ArrayList<>();
+        private LinkedList<String> path = new LinkedList<>();
+
+        public List<String> restoreIpAddresses(String s) {
+            if (s == null || s.length() < 4) return res;
+            backtracking(s, 0);
+            return res;
+        }
+
+        private void backtracking(String str, int idx) {
+            if (path.size() > 4) return;
+
+            if (path.size() == 4 && idx >= str.length()) {
+                res.add(buildIpStringByArray(path));
+                return;
+            }
+
+            for (int i = idx; i < str.length(); i++) {
+                String subStr = str.substring(idx, i + 1);
+                if (isValidIpPart(subStr)) {
+                    path.add(subStr);
+                    backtracking(str, i + 1);
+                    path.removeLast();
+                } else {
+                    // 在 131题的“切割回文字符串”中，这里是 continue。原因是：该 part 的字符串不是回文，再往后切割**有可能**是回文的
+                    // 而本题中，如果某一 part 不符合 ip 规则，后面肯定不会再符合。所以就也不用管了，直接 break
+                    break;
+                }
+            }
+
+        }
+
+        private boolean isValidIpPart(String str) {
+            if (str == null || str.isEmpty()) return false;
+            if (str.charAt(0) == '0' && str.length() > 1) return false;
+
+            int num = Integer.parseInt(str);
+            return num >= 0 && num <= 255;
+        }
+
+        private String buildIpStringByArray(List<String> path) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < path.size(); i++) {
+                sb.append(path.get(i));
+                if (i != path.size() - 1) {
+                    sb.append(".");
+                }
+            }
+            return sb.toString();
+        }
+    }
+
+    //leetcode submit region end(Prohibit modification and deletion)
+
+
+    class Solution2 {
         private static final String SPLIT_STR = ".";
 
         public List<String> restoreIpAddresses(String s) {
@@ -57,7 +114,7 @@ public class RestoreIpAddresses {
 
 
             for (int i = 3; i > 0; i--) {
-                if(tailStr.length() < 1){
+                if (tailStr.length() < 1) {
                     break;
                 }
                 if (tailStr.length() < i) {
@@ -88,7 +145,6 @@ public class RestoreIpAddresses {
 
 
     }
-//leetcode submit region end(Prohibit modification and deletion)
 
 
 }
