@@ -33,6 +33,9 @@
 
 package com.lpf.leetcode.editor.cn;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.*;
 
 /**
@@ -41,7 +44,8 @@ import java.util.*;
 public class Subsets {
     public static void main(String[] args) {
         Solution solution = new Subsets().new Solution();
-
+        List<List<Integer>> subsets = solution.subsets(new int[]{1, 2, 3});
+        System.out.println(JSONObject.toJSON(subsets));
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)

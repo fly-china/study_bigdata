@@ -17,6 +17,7 @@ package com.lpf.leetcode.editor.cn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -37,12 +38,49 @@ public class PermutationsIi {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        private List<List<Integer>> res = new ArrayList<>();
+        private LinkedList<Integer> path = new LinkedList<>();
+        private boolean[] usedFlag;
+
+        public List<List<Integer>> permuteUnique(int[] nums) {
+            Arrays.sort(nums);
+            usedFlag = new boolean[nums.length];
+            backtracking(nums, 0);
+            return res;
+        }
+
+        private void backtracking(int[] nums, int idx) {
+            if (path.size() >= nums.length) {
+                res.add(new ArrayList<>(path));
+                return;
+            }
+
+            for (int i = 0; i < nums.length; i++) {
+                if (usedFlag[i]) {
+                    continue;
+                }
+
+                if (i > 0 && nums[i] == nums[i - 1] && !usedFlag[i - 1]) {
+                    continue;
+                }
+
+                usedFlag[i] = true;
+                path.add(nums[i]);
+                backtracking(nums, i);
+                path.removeLast();
+                usedFlag[i] = false;
+            }
+        }
+    }
+
+    class Solution2 {
         /**
          * 和46题相比，解题思路重点关注三个点：
          * 1、画出递归树，找规律，那就很简单了
          * 2、重点代码一：依赖于重复数的判断，所以主函数中先对数组排序 Arrays.sort(nums);
          * 3、重点代码二：依赖于重复数的判断，所以回溯函数中判断时，要判断：本次遍历到的数字是否和上一个数字相同，且上一个数字是否正在被使用。
-         *
+         * <p>
          * ** 没想到和官方题解代码一模一样 **
          */
         public List<List<Integer>> permuteUnique(int[] nums) {
@@ -65,7 +103,7 @@ public class PermutationsIi {
 
             for (int i = 0; i < nums.length; i++) {
                 if (!useFlag[i]) {
-                    if (i > 0 && nums[i] == nums[i - 1] && !useFlag[i-1]) {
+                    if (i > 0 && nums[i] == nums[i - 1] && !useFlag[i - 1]) {
                         continue;
                     }
 

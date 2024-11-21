@@ -19,6 +19,7 @@
 package com.lpf.leetcode.editor.cn;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,8 +44,42 @@ public class Permutations {
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
-
     class Solution {
+
+        private List<List<Integer>> res = new ArrayList<>();
+        private LinkedList<Integer> path = new LinkedList<>();
+        private boolean[] usedFlag;
+
+        public List<List<Integer>> permute(int[] nums) {
+
+            usedFlag = new boolean[nums.length];
+            backtracking(nums, 0);
+            return res;
+        }
+
+        private void backtracking(int[] nums, int idx) {
+            if (path.size() >= nums.length) {
+                res.add(new ArrayList<>(path));
+                return;
+            }
+
+            for (int i = 0; i < nums.length; i++) {
+                if (usedFlag[i]) {
+                    continue;
+                }
+
+                path.add(nums[i]);
+                usedFlag[i] = true;
+                backtracking(nums, i);
+                usedFlag[i] = false;
+                path.removeLast();
+            }
+        }
+    }
+
+    //leetcode submit region end(Prohibit modification and deletion)
+
+    class Solution2 {
         public List<List<Integer>> permute(int[] nums) {
 
             List<List<Integer>> res = new ArrayList<>();
@@ -91,7 +126,7 @@ public class Permutations {
         }
     }
 
-    //leetcode submit region end(Prohibit modification and deletion)
+
     class Solution_SLOW {
 
         //

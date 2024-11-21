@@ -47,6 +47,11 @@ import java.util.*;
  */
 public class NQueens {
     public static void main(String[] args) {
+        Solution2 solution2 = new NQueens().new Solution2();
+        List<List<String>> lists2 = solution2.solveNQueens(4);
+        lists2.forEach(System.out::println);
+
+        System.out.println("-------------");
         Solution solution = new NQueens().new Solution();
         List<List<String>> lists = solution.solveNQueens(4);
         lists.forEach(System.out::println);
@@ -54,7 +59,62 @@ public class NQueens {
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
+    // add by 2024/11/20
     class Solution {
+
+        private List<List<String>> res = new ArrayList<>();
+
+        public List<List<String>> solveNQueens(int n) {
+
+            char[][] pos = new char[n][n];
+            boolean[] col = new boolean[n];
+            boolean[] pie = new boolean[2 * n];
+            boolean[] na = new boolean[2 * n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    pos[i][j] = '.';
+                }
+            }
+
+            backtracking(pos, col, pie, na, n, 0);
+            return res;
+        }
+
+        private void backtracking(char[][] pos, boolean[] col, boolean[] pie, boolean[] na, int n, int curRow) {
+            if (curRow >= n) {
+                List<String> rowPath = new ArrayList<>();
+                for (int i = 0; i < n; i++) {
+                    rowPath.add(String.valueOf(pos[i]));
+                }
+                res.add(rowPath);
+                return;
+            }
+
+            for (int i = 0; i < n; i++) {
+                // 如果不满足放置位置（列、主对角线、副对角线；按行遍历无需关注行），continue
+                if (col[i] || pie[curRow - i + n] || na[curRow + i]) {
+                    continue;
+                }
+
+                pos[curRow][i] = 'Q';
+                col[i] = true;
+                pie[curRow - i + n] = true; // 主对角线。 同一主对角线上，row-col 是相等的， row-col 的取值范围是 [-n, n]，因为有负数，所以对所有值+n
+                na[curRow + i] = true; // 副对角线。 同一主对角线上，row+col 是相等的
+
+                backtracking(pos, col, pie, na, n, curRow + 1);
+
+                pos[curRow][i] = '.';
+                col[i] = false;
+                pie[curRow - i + n] = false;
+                na[curRow + i] = false;
+
+            }
+        }
+
+    }
+    //leetcode submit region end(Prohibit modification and deletion)
+
+    class Solution2 {
         public List<List<String>> solveNQueens(int n) {
             List<List<String>> res = new ArrayList<>();
             if (n > 0) {
@@ -83,7 +143,7 @@ public class NQueens {
                                boolean[] colSet, boolean[] pieSet, boolean[] naSet) {
             if (row == n) {
                 List<String> toAdd = new ArrayList<>();
-                for (int i = 0; i < n; i ++) {
+                for (int i = 0; i < n; i++) {
                     toAdd.add(String.valueOf(pos[i]));
                 }
                 res.add(toAdd);
@@ -127,8 +187,11 @@ public class NQueens {
 
 
     }
-//leetcode submit region end(Prohibit modification and deletion)
 
+    // [0,0], [0,1], [0,2], [0,3]
+    // [1,0], [1,1], [1,2], [1,3]
+    // [2,0], [2,1], [2,2], [2,3]
+    // [3,0], [3,1], [3,2], [3,3]
     class Solution_A {
         public List<List<String>> solveNQueens(int n) {
             List<List<String>> res = new ArrayList<>();
@@ -136,8 +199,8 @@ public class NQueens {
 
                 // Queen可攻击的范围集合
                 Set<Integer> colSet = new LinkedHashSet<>();// 列集合
-                Set<Integer> pieSet = new HashSet<>();// "丿"集合，副对角线集合
-                Set<Integer> naSet = new HashSet<>();// "na"集合，主对角线集合
+                Set<Integer> pieSet = new HashSet<>();// "丿"集合，副对角线集合。 副对角线上的元素 col+row 都是相等的
+                Set<Integer> naSet = new HashSet<>();// "na"集合，主对角线集合。 主对角线上的元素 col-row 都是相等的
 
 
                 char[][] pos = new char[n][n];
