@@ -30,13 +30,15 @@
 // 所有节点的值都是唯一的。 
 // p、q 为不同节点且均存在于给定的二叉搜索树中。 
 // 
-// Related Topics 树 
-// 👍 387 👎 0
+//
+// Related Topics 树 深度优先搜索 二叉搜索树 二叉树 👍 1292 👎 0
 
 
 package com.lpf.leetcode.editor.cn;
 
-// [235]-二叉搜索树的最近公共祖先
+/**
+ * [235]-二叉搜索树的最近公共祖先
+ */
 public class LowestCommonAncestorOfABinarySearchTree {
     public static void main(String[] args) {
         Solution solution = new LowestCommonAncestorOfABinarySearchTree().new Solution();
@@ -45,22 +47,23 @@ public class LowestCommonAncestorOfABinarySearchTree {
 
     //leetcode submit region begin(Prohibit modification and deletion)
 
+    /**
+     * Definition for a binary tree node.
+     * public class TreeNode {
+     * int val;
+     * TreeNode left;
+     * TreeNode right;
+     * TreeNode(int x) { val = x; }
+     * }
+     */
+
     class Solution {
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-            // TODO:二叉搜索树的最近公共祖先
+
             return null;
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
 
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 }
