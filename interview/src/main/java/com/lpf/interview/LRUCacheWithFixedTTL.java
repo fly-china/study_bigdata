@@ -18,7 +18,6 @@ import static java.lang.System.currentTimeMillis;
  */
 class LRUCacheWithFixedTTL {
 
-    // 类似于
     class LRUCache {
         class Node {
             int key, val;

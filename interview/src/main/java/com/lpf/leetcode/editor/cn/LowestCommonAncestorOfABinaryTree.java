@@ -51,17 +51,82 @@ package com.lpf.leetcode.editor.cn;
 public class LowestCommonAncestorOfABinaryTree {
     public static void main(String[] args) {
         Solution solution = new LowestCommonAncestorOfABinaryTree().new Solution();
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node6 = new TreeNode(6);
+        TreeNode node7 = new TreeNode(7);
+        TreeNode node8 = new TreeNode(8);
+        TreeNode node9 = new TreeNode(9);
+        node1.left = node2;
+        node1.right = node9;
 
+        node2.left = node3;
+        node2.right = node4;
+
+        node3.left = node5;
+        node3.right = node6;
+
+        node4.left = node7;
+        node4.right = node8;
+
+        System.out.println("***final res=" + solution.printNode(solution.lowestCommonAncestor(node1, node6, node7)));
+
+        // 根据打印结果更好理解
+        // root=5, L=null, R=null...res=null
+        // root=6...res=6
+        // root=3, L=null, R=6...res=6
+        // root=7...res=7
+        // root=8, L=null, R=null...res=null
+        // root=4, L=7, R=null...res=7
+        // root=2, L=6, R=7...res=2
+        // root=9, L=null, R=null...res=null
+        // root=1, L=2, R=null...res=2
+        //
+        // ***final res=2
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
 
     class Solution {
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+            if (root == null) return null;
+            if (root == p || root == q) {
+                System.out.println("root=" + root.val + "...res=" + root.val);
+                return root; // 找到目标节点就返回它。
+            }
 
 
-            return null;
+            TreeNode leftRes = lowestCommonAncestor(root.left, p, q); // 后序遍历：左。
+            TreeNode rightRes = lowestCommonAncestor(root.right, p, q); // 后序遍历：右
+
+            // 后序遍历：中
+            TreeNode res = null;
+            if (leftRes != null && rightRes != null) {
+                // 若找到两个节点。说明左子树中包含了p或 q，右子树包含了另一个节点。那么该根节点就是最近公共父节点
+                res = root;
+            } else if (rightRes != null) {
+                // 若找到一个节点。左空右非空，说明在右子树中包含该节点，左子树什么都没找到
+                res = rightRes;
+            } else if (leftRes != null) {
+                // 若找到一个节点
+                res = leftRes;
+            } else {
+                res = null;
+            }
+
+            System.out.println("root=" + root.val + ", L=" + printNode(leftRes) + ", R=" + printNode(rightRes)
+                    + "...res=" + printNode(res));
+            return res;
         }
+
+        private String printNode(TreeNode node) {
+            return node == null ? "null" : node.val + "";
+        }
+
+
     }
 //leetcode submit region end(Prohibit modification and deletion)
 

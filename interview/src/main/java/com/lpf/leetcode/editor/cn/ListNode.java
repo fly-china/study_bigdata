@@ -1,5 +1,8 @@
 package com.lpf.leetcode.editor.cn;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author lipengfei
  * @create 2024-11-18 11:05
@@ -32,5 +35,14 @@ public class ListNode {
         }
 
         return head.next;
+    }
+
+    public static int[] convertNodeToArray(ListNode node) {
+        List<Integer> list = new ArrayList<>();
+        while (node != null) {
+            list.add(node.val);
+            node = node.next;
+        }
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }

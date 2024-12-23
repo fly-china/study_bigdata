@@ -44,13 +44,13 @@ public class KthLargestElementInAnArray {
 
         private int quickSortHelper(int[] nums, int left, int right, int k) {
             if (left >= right) return -1;
-            int partion = partion(nums, left, right);
-            if (partion == (nums.length - k)) {
-                return nums[partion];
+            int partionIdx = partion(nums, left, right);
+            if (partionIdx == (nums.length - k)) {
+                return nums[partionIdx];
             }
 
-            return partion > (nums.length - k) ? quickSortHelper(nums, left, partion - 1, k) :
-                    quickSortHelper(nums, partion + 1, right, k);
+            return partionIdx > (nums.length - k) ? quickSortHelper(nums, left, partionIdx - 1, k) :
+                    quickSortHelper(nums, partionIdx + 1, right, k);
 
         }
 

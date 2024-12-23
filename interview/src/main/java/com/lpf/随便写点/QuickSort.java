@@ -9,12 +9,34 @@ package com.lpf.随便写点;
 public class QuickSort {
 
     public static void main(String[] args) {
-        int[] arr = {4, 2, 5, 7, 1, 9, 3, 0, 6};
-        quickSort1(arr, 0, arr.length - 1);
+        int[] arr = {4, 0,0, 5, 7, 7, 9, 3, 0, 6};
+        quickSort20241223(arr, 0, arr.length - 1);
         for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
+            System.out.print(arr[i] + ", ");
         }
+    }
 
+    private static void quickSort20241223(int[] nums, int a, int b) {
+        if (nums == null || nums.length <= 1 || a >= b) return;
+
+        int start = a;
+        int end = b;
+        int pivot = nums[start];
+        while (start < end) {
+            while (start < end && nums[end] > pivot) {
+                end--;
+            }
+            nums[start] = nums[end];
+
+            while (start < end && nums[start] <= pivot) {
+                start++;
+            }
+            nums[end] = nums[start];
+        }
+        nums[start] = pivot;
+
+        quickSort20241223(nums, a, start - 1);
+        quickSort20241223(nums, start + 1, b);
     }
 
     private static void quickSort1(int[] arr, int begin, int end) {
@@ -76,7 +98,6 @@ public class QuickSort {
         quickSort2(arr, low, m - 1);
         quickSort2(arr, m + 1, high);
     }
-
 
 
     public static void quickSort(int[] arr, int low, int high) {
