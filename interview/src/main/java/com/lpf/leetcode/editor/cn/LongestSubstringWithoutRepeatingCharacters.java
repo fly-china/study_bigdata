@@ -44,8 +44,30 @@ public class LongestSubstringWithoutRepeatingCharacters {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
-        // abcabcbb
+
         public int lengthOfLongestSubstring(String str) {
+            if (str == null || str.isEmpty()) return 0;
+
+            Map<Character, Integer> charMap = new HashMap<>(); // <char, startIndex>
+
+            int res = 0;
+            int left = 0, right = 0;
+            while (right < str.length()) {
+                char rightChar = str.charAt(right);
+                if (charMap.containsKey(rightChar)) {
+                    left = Math.max(left, charMap.get(rightChar) + 1); // 移动到首个重复字母之后
+                }
+                res = Math.max(res, right - left + 1);
+                charMap.put(rightChar, right);
+                right++;
+            }
+
+            return res;
+        }
+
+
+        // abcabcbb
+        public int lengthOfLongestSubstring2020(String str) {
             if (str == null || str.length() == 0) return 0;
             int maxLength = 0;
             // map中key是字符，value是字符出现的位置

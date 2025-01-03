@@ -9,7 +9,8 @@ package com.lpf.随便写点;
 public class QuickSort {
 
     public static void main(String[] args) {
-        int[] arr = {4, 0,0, 5, 7, 7, 9, 3, 0, 6};
+//        int[] arr = {4, 0,0, 5, 7, 7, 9, 3, 0, 6};
+        int[] arr = {110, 100, 0};
         quickSort20241223(arr, 0, arr.length - 1);
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + ", ");

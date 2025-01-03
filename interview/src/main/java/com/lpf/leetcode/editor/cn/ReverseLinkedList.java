@@ -14,55 +14,77 @@ package com.lpf.leetcode.editor.cn;
 
 /**
  * [206]-反转链表
- * 
  */
-public class ReverseLinkedList{
-  public static void main(String[] args) {
-	   Solution solution = new ReverseLinkedList().new Solution();
-	   
-  }
-  
-    //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode reverseList(ListNode head) {
-        if(head == null) return head;
-        ListNode reverse = null;
-        ListNode temp = null;
+public class ReverseLinkedList {
+    public static void main(String[] args) {
+        Solution solution = new ReverseLinkedList().new Solution();
 
-        while (head.next != null) {
-           temp = head.next;
-           head.next = reverse;
-           reverse = head;
-           head = temp;
-        }
-        head.next = reverse;
-
-        return head;
     }
-}
+
+    //leetcode submit region begin(Prohibit modification and deletion)
+
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+
+        public ListNode reverseList(ListNode head) {
+            return reverseListRecursive(head);
+        }
+
+        public ListNode reverseList2020(ListNode head) {
+            if (head == null) return head;
+            ListNode reverse = null;
+            ListNode temp = null;
+
+            while (head.next != null) {
+                temp = head.next;
+                head.next = reverse;
+                reverse = head;
+                head = temp;
+            }
+            head.next = reverse;
+
+            return head;
+        }
+
+        public ListNode reverse2024(ListNode head) {
+            ListNode pre = null;
+            while (head != null) {
+                ListNode tmp = head;
+                head = head.next;
+
+                tmp.next = pre;
+                pre = tmp;
+            }
+            return pre;
+        }
+
+        // 递归
+        public ListNode reverseListRecursive(ListNode head) {
+            if (head == null || head.next == null) return head;
+
+            ListNode newHead = reverseListRecursive(head.next);
+            head.next.next = head;
+            head.next = null;
+            return newHead;
+        }
+    }
 //leetcode submit region end(Prohibit modification and deletion)
 
     public class ListNode {
         int val;
         ListNode next;
-        ListNode(int x) { val = x; }
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 
-    // 递归
-    public ListNode reverseListRecursive(ListNode head) {
-        if(head == null || head.next == null) return head;
 
-        ListNode newHead = reverseListRecursive(head.next);
-        head.next.next = head;
-        head.next = null;
-        return head;
-    }
 }

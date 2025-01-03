@@ -22,20 +22,23 @@
 package com.lpf.leetcode.editor.cn;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 /**
  * [15]-三数之和
  */
+@Slf4j
 public class ThreeSum {
     public static void main(String[] args) {
         Solution solution = new ThreeSum().new Solution();
 //        int[] nums = {-1, 0, 1, 2, -1, -4};
+        int[] nums = {-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4};
 //        int[] nums = {-2, 0, 0, 2, 2};
 //        int[] nums = {-4, -2, 1, -5, -4, -4, 4, -2, 0, 4, 0, -2, 3, 1, -5, 0};
-        int[] nums = {2, -3, 0, -2, -5, -5, -4, 1, 2, -2, 2, 0, 2, -4};
-//        int[] nums = {0,0, 0};
+//        int[] nums = {2, -3, 0, -2, -5, -5, -4, 1, 2, -2, 2, 0, 2, -4};
+//        int[] nums = {1, 1, -2};
         List<List<Integer>> lists = solution.threeSum(nums);
         System.out.println(lists.size());
         System.out.println(JSONObject.toJSON(lists));
@@ -43,12 +46,51 @@ public class ThreeSum {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
+        public List<List<Integer>> threeSum(int[] nums) {
+            List<List<Integer>> res = new ArrayList<>();
+
+            Arrays.sort(nums);
+
+            for (int i = 0; i < nums.length - 2; i++) {
+                if (i > 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                int targetSum = -nums[i];
+                if ((targetSum < 0 && nums[i + 1] > 0)
+                        || (targetSum > 0 && nums[nums.length - 1] < 0)) {
+                    break;
+                }
+                int low = i + 1;
+                int high = nums.length - 1;
+                while (low < high) {
+                    int sum = nums[low] + nums[high];
+                    if (sum == targetSum) {
+                        res.add(Arrays.asList(nums[i], nums[low], nums[high]));
+                        do low++;
+                        while (low < high && nums[low] == nums[low - 1]);
+                        do high--;
+                        while (low < high && nums[high] == nums[high + 1]);
+                    } else if (sum < targetSum) {
+                        do low++;
+                        while (low < high && nums[low] == nums[low - 1]);
+                    } else {
+                        do high--;
+                        while (low < high && nums[high] == nums[high + 1]);
+                    }
+                }
+            }
+
+            return res;
+        }
+
+
         /**
          * [[-5,1,4],[-4,0,4],[-4,1,3],[-2,-2,4]] ....... [-2,1,1],[0,0,0]
          * 双指针 + 双重循环 [-5,-5,-4,-4,-4,-2,-2,- 2, 0, 0, 0,  1, 1, 3, 4, 4]
-         *                                 5         8        11     13    15
+         * 5         8        11     13    15
          */
-        public List<List<Integer>> threeSum(int[] nums) {
+        public List<List<Integer>> threeSum2020(int[] nums) {
             List<List<Integer>> numlist = new ArrayList<>();
             if (nums == null || nums.length < 3) return numlist;
             Arrays.sort(nums);
@@ -67,16 +109,16 @@ public class ThreeSum {
                 for (int low = i + 1, high = nums.length - 1; low < high; ) {
                     if ((nums[low] + nums[high] + a) < 0) {
                         low++;
-                        while (low < high &&  nums[low] == nums[low - 1]) low++;
+                        while (low < high && nums[low] == nums[low - 1]) low++;
                     } else if ((nums[low] + nums[high] + a) > 0) {
                         high--;
-                        while (low < high &&  nums[high] == nums[high + 1]) high--;
+                        while (low < high && nums[high] == nums[high + 1]) high--;
                     } else {
                         numlist.add(Arrays.asList(a, nums[low], nums[high]));
                         low++;
                         high--;
-                        while (low < high &&  nums[low] == nums[low - 1]) low++;
-                        while (low < high &&  nums[high] == nums[high + 1]) high--;
+                        while (low < high && nums[low] == nums[low - 1]) low++;
+                        while (low < high && nums[high] == nums[high + 1]) high--;
                     }
 
                 }

@@ -39,12 +39,47 @@ package com.lpf.leetcode.editor.cn;
 public class SortAnArray {
     public static void main(String[] args) {
         Solution solution = new SortAnArray().new Solution();
-
+//        int[] arr = {4, 0,0, 5, 7, 7, 9, 3, 0, 6};
+        int[] arr = {110, 100, 0};
+        arr = solution.sortArray(arr);
+        for (int j : arr) {
+            System.out.print(j + ", ");
+        }
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int[] sortArray(int[] nums) {
+            quickSort20241224(nums, 0, nums.length - 1);
+            return nums;
+        }
+
+        private void quickSort20241224(int[] nums, int m, int n) {
+            if (nums == null || nums.length <= 1 || m >= n) {
+                return;
+            }
+
+            int start = m;
+            int end = n;
+            int pivot = nums[start];
+            while (start < end) {
+                while (start < end && nums[end] > pivot) {
+                    end--;
+                }
+                nums[start] = nums[end];
+
+                while (start < end && nums[start] <= pivot) {
+                    start++;
+                }
+                nums[end] = nums[start];
+            }
+            nums[start] = pivot;
+
+            quickSort20241224(nums, m, start - 1);
+            quickSort20241224(nums, start + 1, n);
+        }
+
+        public int[] sortArray2(int[] nums) {
             if (nums == null || nums.length < 1) return new int[0];
 
             bubbleSort(nums);
@@ -60,7 +95,7 @@ public class SortAnArray {
             for (int i = 1; i < nums.length; i++) {
                 for (int j = 0; j < nums.length - i; j++) {
                     if (nums[j] > nums[j + 1]) {
-                        swap(nums, j, j+1);
+                        swap(nums, j, j + 1);
                     }
                 }
             }

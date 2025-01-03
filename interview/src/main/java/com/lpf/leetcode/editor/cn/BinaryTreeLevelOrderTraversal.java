@@ -26,14 +26,12 @@
 
 package com.lpf.leetcode.editor.cn;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BinaryTreeLevelOrderTraversal {
     public static void main(String[] args) {
         Solution solution = new BinaryTreeLevelOrderTraversal().new Solution();
+
 
     }
 
@@ -43,21 +41,34 @@ public class BinaryTreeLevelOrderTraversal {
             List<List<Integer>> resList = new ArrayList<>();
             if (root == null) return resList;
 
-            helperLevelOrder(root, resList, 0);
+            helperLevelOrder20241224(root, resList, 0);
             return resList;
         }
 
+        private void helperLevelOrder20241224(TreeNode root, List<List<Integer>> resList, int levelOrder) {
+            if (root == null) return;
+
+            if (resList.size() <= levelOrder) {
+                resList.add(new ArrayList<>());
+            }
+            resList.get(levelOrder).add(root.val);
+
+            helperLevelOrder20241224(root.left, resList, levelOrder + 1);
+            helperLevelOrder20241224(root.right, resList, levelOrder + 1);
+        }
+
+
         private void helperLevelOrder(TreeNode root, List<List<Integer>> resList, int level) {
-            if(root == null) return;
-            if(resList.size() <= level){
+            if (root == null) return;
+            if (resList.size() <= level) {
                 List<Integer> levelList = new ArrayList<>();
                 resList.add(levelList);
             }
 
             resList.get(level).add(root.val);
 
-            helperLevelOrder(root.left, resList, level+1);
-            helperLevelOrder(root.right, resList, level+1);
+            helperLevelOrder(root.left, resList, level + 1);
+            helperLevelOrder(root.right, resList, level + 1);
         }
     }
 
@@ -80,8 +91,8 @@ public class BinaryTreeLevelOrderTraversal {
                     TreeNode pollNode = queue.poll();
                     levelList.add(pollNode.val);
 
-                    if(pollNode.left!=null) queue.add(pollNode.left);
-                    if(pollNode.right!=null) queue.add(pollNode.right);
+                    if (pollNode.left != null) queue.add(pollNode.left);
+                    if (pollNode.right != null) queue.add(pollNode.right);
                 }
             }
 

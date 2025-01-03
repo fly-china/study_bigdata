@@ -29,9 +29,9 @@ package com.lpf.leetcode.editor.cn;
 public class MergeSortedArray {
     public static void main(String[] args) {
         Solution solution = new MergeSortedArray().new Solution();
-        int[] nums1 = {4, 5, 6, 7, 0, 0, 0};
-        int[] nums2 = {1, 2, 3};
-        int m = 4;
+        int[] nums1 = {1, 2, 3, 0, 0, 0};
+        int[] nums2 = {2, 5, 6};
+        int m = 3;
         int n = 3;
         solution.merge(nums1, m, nums2, n);
 
@@ -48,16 +48,42 @@ public class MergeSortedArray {
      * 解答成功: 执行耗时:0 ms,击败了100.00% 的Java用户 内存消耗:39.3 MB,击败了5.06% 的Java用户
      */
     class Solution {
+
         public void merge(int[] nums1, int m, int[] nums2, int n) {
+            merge2024(nums1, m - 1, nums2, n - 1);
+        }
+
+        public void merge2024(int[] nums1, int m, int[] nums2, int n) {
+            while (m >= 0 || n >= 0) {
+                if (m < 0) {
+                    nums1[n] = nums2[n];
+                    n--;
+                    continue;
+                }
+                if (n < 0) {
+                    nums1[m] = nums1[m];
+                    m--;
+                    continue;
+                }
+                if (nums1[m] > nums2[n]) {
+                    nums1[m + n + 1] = nums1[m--];
+                } else {
+                    nums1[m + n + 1] = nums2[n--];
+                }
+            }
+        }
+
+        public void merge2020(int[] nums1, int m, int[] nums2, int n) {
             if (nums2 == null) return;
             int i = m + n - 1;
-            m--;n--;
-            while (n >= 0 || m >= 0){
-                if(n < 0) break;
-                if(m < 0 || nums1[m] < nums2[n]){
+            m--;
+            n--;
+            while (n >= 0 || m >= 0) {
+                if (n < 0) break;
+                if (m < 0 || nums1[m] < nums2[n]) {
                     nums1[i] = nums2[n];
                     n--;
-                }else{
+                } else {
                     nums1[i] = nums1[m];
                     m--;
                 }
