@@ -16,6 +16,9 @@
 
 package com.lpf.leetcode.editor.cn;
 
+import java.awt.*;
+import java.util.Stack;
+
 /**
  * [143]-重排链表
  */
@@ -39,7 +42,45 @@ public class ReorderList {
     //leetcode submit region begin(Prohibit modification and deletion)
 
     class Solution {
+
         public void reorderList(ListNode head) {
+            reorderList2024(head);
+        }
+
+        public void reorderList2024(ListNode head) {
+            ListNode dummy = new ListNode();
+            dummy.next = head;
+
+            Stack<ListNode> stack = new Stack<>();
+            ListNode slow = dummy;
+            ListNode fast = dummy;
+            while (fast != null && fast.next != null) {
+                slow = slow.next;
+                stack.push(slow); // 第一个是 dummy 节点，所以先 next，再入栈
+                fast = fast.next.next;
+            }
+
+            boolean isNodesOddNum = fast == null; // 节点数是奇数个，slow 是中间位置
+
+
+            ListNode secHalfNode = slow.next;
+            slow.next = null;
+
+            if (isNodesOddNum) { // 奇数个节点，先把中间的 pop 出来
+                ListNode pop = stack.pop();
+            }
+
+            while (secHalfNode != null) {
+                ListNode tmp = secHalfNode;
+                secHalfNode = secHalfNode.next;
+
+                ListNode pop = stack.pop();
+                tmp.next = pop.next;
+                pop.next = tmp;
+            }
+        }
+
+        public void reorderList20(ListNode head) {
             if (head == null) return;
 
             // 1、先找出链表中间节点（奇数节点）或中间位置前的节点（偶数节点）
