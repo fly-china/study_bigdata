@@ -47,8 +47,27 @@ public class PalindromicSubstrings {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public int countSubstrings(String s) {
-            // TODO：DP 问题，先暂时不做
-            return 0;
+            int res = 0;
+
+            // dp[i][j] : 在字符串 str 中，第 i - j 字符串是否为回文字符串
+            // - str[i] != str[i] 时，肯定不是
+            // - str[i] == str[j] 时，取决于 dp[i+1][j-1] 是否回文
+            boolean[][] dp = new boolean[s.length()][s.length()];
+            for (int i = s.length() - 1; i >= 0; i--) {
+                for (int j = i; j < s.length(); j++) {
+                    if (s.charAt(i) == s.charAt(j)) {
+                        if (j - i <= 1 || dp[i + 1][j - 1]) {
+                            res++;
+                            dp[i][j] = true;
+//                            System.out.println("dp[" + i + "][" + j + "]=" + dp[i][j]);
+                        }
+                    } else {
+                        // 啥也不是
+                    }
+                }
+            }
+
+            return res;
         }
 
 

@@ -34,8 +34,6 @@
 
 package com.lpf.leetcode.editor.cn;
 
-import java.util.List;
-
 /**
  * [234]-回文链表
  */
