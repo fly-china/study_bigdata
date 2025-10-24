@@ -108,8 +108,8 @@ public class LruCache {
 
             // 从双向链表中，移除当前节点，并插入至头部。可以优化一下：如果已经是第一个节点则不操作
             if (dummyNode.next != node) {
-            removeCurNode(node);
-            insertToHead(node);
+                removeCurNode(node);
+                insertToHead(node);
             }
 
             return node;

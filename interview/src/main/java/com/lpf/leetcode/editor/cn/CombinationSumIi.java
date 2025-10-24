@@ -56,8 +56,8 @@ import java.util.List;
 public class CombinationSumIi {
     public static void main(String[] args) {
         Solution solution = new CombinationSumIi().new Solution();
-        int[] candidates = {1};
-        List<List<Integer>> lists = solution.combinationSum2(candidates, 1);
+        int[] candidates = {1, 1, 2, 3};
+        List<List<Integer>> lists = solution.combinationSum2(candidates, 3);
         System.out.println(JSONObject.toJSON(lists));
 
     }
@@ -85,8 +85,14 @@ public class CombinationSumIi {
             }
 
             for (int i = idx; i < candidates.length && sum + candidates[i] <= target; i++) {
+                String msg = "idx=" + idx + "--i=" + i + "---c[i]=" + candidates[i];
+                if (i > 0) {
+                    msg += "--c[i-1]=" + candidates[i - 1];
+                }
+                System.out.println(msg);
                 // 正确剔除重复解的办法,跳过同一树层使用过的元素
                 if (i > idx && candidates[i] == candidates[i - 1]) {
+                    System.out.println("continue");
                     continue;
                 }
                 path.add(candidates[i]);

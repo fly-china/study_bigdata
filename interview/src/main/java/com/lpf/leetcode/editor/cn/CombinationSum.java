@@ -59,7 +59,7 @@ import java.util.List;
 public class CombinationSum {
     public static void main(String[] args) {
         Solution solution = new CombinationSum().new Solution();
-        int[] candidates = {8,3};
+        int[] candidates = {8, 3};
         List<List<Integer>> combinationSum = solution.combinationSum(candidates, 11);
         System.out.println(JSONObject.toJSON(combinationSum));
 
@@ -67,6 +67,46 @@ public class CombinationSum {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        private List<List<Integer>> res = new ArrayList<>();
+        private LinkedList<Integer> path = new LinkedList<>();
+
+        public List<List<Integer>> combinationSum(int[] candidates, int target) {
+            if (candidates == null) return null;
+            Arrays.sort(candidates);
+            backtracking(candidates, target, 0, 0);
+            return res;
+        }
+
+        private void backtracking(int[] nums, int target, int curSum, int idx) {
+            if (curSum > target) {
+                return;
+            }
+
+            if (curSum == target) {
+                res.add(new ArrayList<>(path));
+                return;
+            }
+
+            for (int i = idx; i < nums.length; i++) {
+                if (curSum + nums[i] > target) {
+                    break;
+                }
+                if (i > 0 && nums[i] == nums[i - 1]) {
+                    continue;
+                }
+                path.add(nums[i]);
+
+                backtracking(nums, target, curSum + nums[i], i);
+
+                path.removeLast();
+            }
+
+        }
+    }
+
+
+    //leetcode submit region end(Prohibit modification and deletion)
+    class Solution2 {
 
         private List<List<Integer>> res = new ArrayList<>();
         private LinkedList<Integer> path = new LinkedList<>();
@@ -83,6 +123,7 @@ public class CombinationSum {
 
         private void backtrack(int[] candidates, int target, int startIdx) {
             if (sum > target) return;
+
             if (sum == target) {
                 res.add(new ArrayList<>(path));
                 return;
@@ -99,7 +140,6 @@ public class CombinationSum {
 
         }
     }
-//leetcode submit region end(Prohibit modification and deletion)
 
 
 }
