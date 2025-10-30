@@ -66,8 +66,52 @@ public class ReverseNodesInKGroup {
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
 
-        // [1,2,3,4,5,6,7] -> [3,2,1, 6,5,4, 7]
+        // // [1,2,3,4,5,6,7] 3 -> [3,2,1, 6,5,4, 7]
         public ListNode reverseKGroup(ListNode head, int k) {
+            ListNode dummy = new ListNode(-1);
+            dummy.next = head;
+
+            ListNode preGroupTail = dummy;
+
+            while (head != null) {
+                ListNode tmpHead = head;
+                ListNode tmpTail = head;
+                int cnt = 0;
+                while (head != null && cnt < k) {
+                    if (cnt == k-1){
+                        tmpTail = head;
+                    }
+                    head = head.next;
+                    cnt++;
+                }
+                if (cnt < k) {
+                    // 不足 k 个
+                    break;
+                }
+                tmpTail.next = null;
+
+               ListNode reverseHead = reverse(tmpHead);
+               preGroupTail.next.next = head;
+               preGroupTail.next  = reverseHead;
+               preGroupTail = tmpHead;
+            }
+
+            return dummy.next;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        // [1,2,3,4,5,6,7] -> [3,2,1, 6,5,4, 7]
+        public ListNode reverseKGroup2024(ListNode head, int k) {
             ListNode dummy = new ListNode();
             dummy.next = head;
 

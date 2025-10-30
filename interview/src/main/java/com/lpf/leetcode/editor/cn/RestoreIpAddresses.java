@@ -19,17 +19,77 @@ public class RestoreIpAddresses {
     public static void main(String[] args) {
         Solution solution = new RestoreIpAddresses().new Solution();
 
-//        String a = "25525511135";
+        String a = "25525511135";
 //        String a = "010010";
-        String a = "101023";
+//        String a = "0000";
+//        String a = "101023";
 
         System.out.println(JSONObject.toJSON(solution.restoreIpAddresses(a)));
     }
 
 
     //leetcode submit region begin(Prohibit modification and deletion)
-    // add by 2024/11/18
     class Solution {
+
+        private List<String> res = new ArrayList<>();
+        private LinkedList<String> path = new LinkedList<>();
+
+        public List<String> restoreIpAddresses(String s) {
+            if (s == null || s.length() < 4) {
+                return res;
+            }
+            backtracking(s, 0);
+            return res;
+        }
+
+        private void backtracking(String str, int idx) {
+            if (path.size() > 4) return;
+
+            if (path.size() == 4 && idx >= str.length()) {
+                res.add(buildIpStr(path));
+                return;
+            }
+
+            for (int i = idx; i < str.length(); i++) {
+                String tmpStr = str.substring(idx, i + 1);
+                if (isValidIp(tmpStr)) {
+                    path.add(tmpStr);
+                    backtracking(str, i + 1);
+                    path.removeLast();
+                } else {
+                    break;
+                }
+            }
+
+        }
+
+        private boolean isValidIp(String str) {
+            if (str == null || str.length() > 3) {
+                return false;
+            }
+            if (str.charAt(0) == '0' && str.length() > 1) return false;
+
+            int ipInt = Integer.parseInt(str);
+            return ipInt >= 0 && ipInt <= 255;
+        }
+
+        private String buildIpStr(List<String> list) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < list.size(); i++) {
+                sb.append(list.get(i));
+                if (i != list.size() - 1) {
+                    sb.append(".");
+                }
+            }
+            return sb.toString();
+        }
+
+    }
+
+
+    //leetcode submit region end(Prohibit modification and deletion)
+    // add by 2024/11/18
+    class Solution2024 {
 
         private List<String> res = new ArrayList<>();
         private LinkedList<String> path = new LinkedList<>();
@@ -82,8 +142,6 @@ public class RestoreIpAddresses {
             return sb.toString();
         }
     }
-
-    //leetcode submit region end(Prohibit modification and deletion)
 
 
     class Solution2 {

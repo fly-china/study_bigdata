@@ -20,6 +20,8 @@
 
 package com.lpf.leetcode.editor.cn;
 
+import java.util.*;
+
 /**
  * [215]-数组中的第K个最大元素
  */
@@ -31,7 +33,52 @@ public class KthLargestElementInAnArray {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public int findKthLargest(int[] nums, int k) {
+            List<Integer> list = new ArrayList<>();
+            Collections.addAll(list, Arrays.stream(nums).boxed().toArray(Integer[]::new));
+
+
+
+            return findKNumRecur(list, k);
+        }
+
+
+        private int findKNumRecur(List<Integer> nums,  int k) {
+            if (nums.size() < 1 || nums.size() < k) {
+                return Integer.MIN_VALUE;
+            }
+
+            // 将大于、小于、等于 pivot 的元素划分至 big, small, equal 中
+            List<Integer> big = new ArrayList<>();
+            List<Integer> equal = new ArrayList<>();
+            List<Integer> small = new ArrayList<>();
+
+            Random random = new Random();
+            int randomInt = random.nextInt(nums.size());
+            int prviot = nums.get(randomInt);
+
+            for (Integer num : nums) {
+                if (num > prviot) {
+                    big.add(num);
+                } else if (num < prviot) {
+                    small.add(num);
+                } else {
+                    equal.add(num);
+                }
+            }
+
+            if (k <= big.size()) {
+                return findKNumRecur(big, k);
+            } else if (k > big.size() && k <= (big.size() + equal.size()) ) {
+                return equal.get(0);
+            } else {
+                return findKNumRecur(small, k - (big.size() + equal.size()));
+            }
+        }
+
+
+        public int findKthLargest2024(int[] nums, int k) {
             if (nums == null || nums.length < 1 || k < 0 || k > nums.length) {
                 return -1;
             }

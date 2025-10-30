@@ -36,7 +36,7 @@ import java.util.Map;
 public class LongestSubstringWithoutRepeatingCharacters {
     public static void main(String[] args) {
         Solution solution = new LongestSubstringWithoutRepeatingCharacters().new Solution();
-        String str = "abcbbcadbb";
+        String str = "abcabcbb";
         int length = solution.lengthOfLongestSubstring(str);
         System.out.println(length);
 
@@ -46,6 +46,32 @@ public class LongestSubstringWithoutRepeatingCharacters {
     class Solution {
 
         public int lengthOfLongestSubstring(String str) {
+            if (str == null || str.isEmpty()){
+                return 0;
+            }
+            int maxLength = 0;
+            int currLength = 0;
+            int startIdx = 0;
+            int endIdx = 0;
+            Map<Character, Integer> char2IdxMap = new HashMap<>();
+            while (startIdx <= endIdx && endIdx < str.length()) {
+                char endChar = str.charAt(endIdx);
+                if (!char2IdxMap.containsKey(endChar)){
+                    currLength = (endIdx - startIdx) + 1;
+                    endIdx++;
+                    char2IdxMap.put(endChar, endIdx);
+                    maxLength = Math.max(currLength , maxLength);
+                } else {
+                    char2IdxMap.remove(str.charAt(startIdx++));
+                }
+            }
+
+            return maxLength;
+        }
+
+
+
+        public int lengthOfLongestSubstring2024(String str) {
             if (str == null || str.isEmpty()) return 0;
 
             Map<Character, Integer> charMap = new HashMap<>(); // <char, startIndex>

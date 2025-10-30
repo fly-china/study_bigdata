@@ -48,6 +48,7 @@
 
 package com.lpf.leetcode.editor.cn;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -89,6 +90,8 @@ public class MergeKSortedLists {
         public ListNode mergeKLists(ListNode[] lists) {
             if (lists == null || lists.length < 1) return null;
 
+
+            //  1、将数组中的每个链表的头元素放入优先级队列
             PriorityQueue<ListNode> queue = new PriorityQueue<>(Comparator.comparingInt(node -> node.val));
             for (ListNode node : lists) {
                 if (node != null)
@@ -98,11 +101,14 @@ public class MergeKSortedLists {
             ListNode dummy = new ListNode();
             ListNode pre = dummy;
             while (!queue.isEmpty()) {
+                // 2、从队列中获取到数值最小的节点
                 ListNode minNode = queue.poll();
                 if (minNode.next != null) {
+                    // 2.1 如果该节点还有后继结点，将后继结点依然放入优先级队列
                     queue.offer(minNode.next);
                 }
 
+                // 3、将最小节点，拼接到合并链表最后的位置
                 pre.next = minNode;
                 pre = pre.next;
             }

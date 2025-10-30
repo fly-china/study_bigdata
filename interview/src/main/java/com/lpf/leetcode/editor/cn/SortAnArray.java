@@ -54,6 +54,41 @@ public class SortAnArray {
             return nums;
         }
 
+        private void quickSort2025(int[] nums, int left, int right) {
+            if (nums == null || nums.length <= 1 || right <= left) {
+                return;
+            }
+            boolean ordered = true;
+            for (int i = left; i < right-1; i++) {
+                if (nums[i] > nums[i+1]) {
+                    ordered = false;
+                    break;
+                }
+            }
+            if (ordered) return;
+
+            int start = left;
+            int end = right;
+
+            int prviot = nums[start];
+            while (start < end) {
+                while (start < end && nums[end] >= prviot) {
+                    end--;
+                }
+                nums[start] = nums[end];
+                while (start < end && nums[start] <= prviot) {
+                    start++;
+                }
+                nums[end] = nums[start];
+            }
+            nums[start] = prviot;
+
+            quickSort2025(nums, left, start - 1);
+            quickSort2025(nums, start + 1, right);
+        }
+
+
+
         private void quickSort20241224(int[] nums, int m, int n) {
             if (nums == null || nums.length <= 1 || m >= n) {
                 return;

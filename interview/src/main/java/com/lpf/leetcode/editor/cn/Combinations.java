@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+@Deprecated
 public class Combinations {
     public static void main(String[] args) {
         Solution solution = new Combinations().new Solution();

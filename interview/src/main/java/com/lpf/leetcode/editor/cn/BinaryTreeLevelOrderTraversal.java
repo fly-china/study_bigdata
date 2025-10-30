@@ -37,7 +37,30 @@ public class BinaryTreeLevelOrderTraversal {
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+
         public List<List<Integer>> levelOrder(TreeNode root) {
+            List<List<Integer>> resList = new ArrayList<>();
+            if (root == null) return resList;
+            LinkedList<TreeNode> linkedList = new LinkedList<>();
+            linkedList.addLast(root);
+
+            while (!linkedList.isEmpty()){
+                int size = linkedList.size();
+
+                List<Integer> levelList = new ArrayList<>();
+                for (int i = 0; i < size; i++) {
+                    TreeNode treeNode = linkedList.removeFirst();
+                    levelList.add(treeNode.val);
+                    if (treeNode.left != null) linkedList.addLast(treeNode.left);
+                    if (treeNode.right != null) linkedList.addLast(treeNode.right);
+                }
+                resList.add(levelList);
+            }
+
+            return resList;
+        }
+
+        public List<List<Integer>> levelOrder2024(TreeNode root) {
             List<List<Integer>> resList = new ArrayList<>();
             if (root == null) return resList;
 
