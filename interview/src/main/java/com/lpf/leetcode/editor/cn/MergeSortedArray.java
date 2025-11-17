@@ -23,16 +23,22 @@
 
 package com.lpf.leetcode.editor.cn;
 
+import java.util.Arrays;
+
 /**
  * [88]-合并两个有序数组
  */
 public class MergeSortedArray {
     public static void main(String[] args) {
         Solution solution = new MergeSortedArray().new Solution();
-        int[] nums1 = {1, 2, 3, 0, 0, 0};
-        int[] nums2 = {2, 5, 6};
-        int m = 3;
-        int n = 3;
+//        int[] nums1 = {1, 2, 3, 0, 0, 0};
+//        int[] nums2 = {2, 5, 6};
+//        int m = 3;
+//        int n = 3;
+        int[] nums1 = {2, 0};
+        int[] nums2 = {1};
+        int m = 1;
+        int n = 1;
         solution.merge(nums1, m, nums2, n);
 
         for (int i : nums1) {
@@ -50,8 +56,25 @@ public class MergeSortedArray {
     class Solution {
 
         public void merge(int[] nums1, int m, int[] nums2, int n) {
-            merge2024(nums1, m - 1, nums2, n - 1);
+            merge2025(nums1, m, nums2, n);
         }
+
+        public void merge2025(int[] nums1, int m, int[] nums2, int n) {
+            if (n == 0) return;
+
+            int idx = m + n - 1;
+            int num1Idx = m - 1;
+            int num2Idx = n - 1;
+
+            while(num2Idx >= 0) {
+                if (num1Idx < 0 || nums1[num1Idx] <= nums2[num2Idx]) {
+                    nums1[idx--] = nums2[num2Idx--];
+                } else {
+                    nums1[idx--] = nums1[num1Idx--];
+                }
+            }
+        }
+
 
         public void merge2024(int[] nums1, int m, int[] nums2, int n) {
             while (m >= 0 || n >= 0) {

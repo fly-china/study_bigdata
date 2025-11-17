@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
 /**
  * 爬楼梯问题
  * 问题：共有n阶楼梯，每次仅可以爬 1 或 2 个台阶，有多少种不同的方法可以爬到楼顶呢？
@@ -31,7 +32,6 @@ public class Solution_70 {
 
     }
 
-
     /**
      * 方法一：纯递归解法 f(n) = f(n-1) + f(n-2)
      *
@@ -39,7 +39,6 @@ public class Solution_70 {
      * @return
      */
     private int climbStairs(int n) {
-
         if (n == 1)
             return 1;
         if (n == 2)
