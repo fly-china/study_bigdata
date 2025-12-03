@@ -73,6 +73,7 @@ import java.util.Map;
 public class LfuCache {
     public static void main(String[] args) {
 //        Solution solution = new LfuCache().new Solution();
+        int[][] arrays = new int[3][2];
 
     }
 

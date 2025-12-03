@@ -1,0 +1,105 @@
+{
+  "mcpServers": {
+    "maven-helper": {
+      "command": "node",
+      "args": [],
+      "description": "Maven 项目管理助手，用于依赖分析和构建优化",
+      "enabled": true
+    },
+    "hadoop-tools": {
+      "command": "node",
+      "args": [],
+      "description": "Hadoop 相关工具，包括 HDFS 操作、MapReduce 任务管理",
+      "enabled": true
+    },
+    "bigdata-analyzer": {
+      "command": "node",
+      "args": [],
+      "description": "大数据代码分析工具，支持 Hadoop、Kafka、ES 等框架的最佳实践检查",
+      "enabled": true
+    }
+  },
+  "tools": {
+    "java-compiler": {
+      "name": "Java 编译器",
+      "command": "javac",
+      "workingDirectory": "${workspaceFolder}",
+      "description": "编译 Java 源代码"
+    },
+    "maven-build": {
+      "name": "Maven 构建",
+      "command": "mvn",
+      "args": ["clean", "install", "-DskipTests"],
+      "workingDirectory": "${workspaceFolder}",
+      "description": "Maven 项目构建（跳过测试）"
+    },
+    "maven-test": {
+      "name": "Maven 测试",
+      "command": "mvn",
+      "args": ["test"],
+      "workingDirectory": "${workspaceFolder}",
+      "description": "运行 Maven 测试"
+    },
+    "hadoop-job-submit": {
+      "name": "提交 Hadoop 作业",
+      "command": "hadoop",
+      "args": ["jar"],
+      "workingDirectory": "${workspaceFolder}",
+      "description": "提交 MapReduce 作业到 Hadoop 集群"
+    }
+  },
+  "shortcuts": {
+    "compile-current-module": {
+      "description": "编译当前模块",
+      "steps": [
+        {
+          "tool": "maven-build",
+          "module": "${currentModule}"
+        }
+      ]
+    },
+    "run-interview-code": {
+      "description": "运行面试题代码",
+      "steps": [
+        {
+          "command": "cd ${workspaceFolder}/interview && mvn compile exec:java"
+        }
+      ]
+    }
+  },
+  "projectConfig": {
+    "type": "maven-multi-module",
+    "modules": [
+      "bd_es",
+      "bd_hadoop",
+      "bd_kafka",
+      "bd_rocketmq",
+      "bd_youtobe",
+      "interview"
+    ],
+    "javaVersion": "1.8",
+    "encoding": "UTF-8"
+  },
+  "customSettings": {
+    "enableAutoImport": true,
+    "enableCodeAnalysis": true,
+    "bigdataFrameworks": {
+      "hadoop": {
+        "version": "3.x",
+        "components": ["HDFS", "YARN", "MapReduce", "Hive"]
+      },
+      "kafka": {
+        "version": "2.x",
+        "enabled": true
+      },
+      "elasticsearch": {
+        "version": "7.x",
+        "enabled": true
+      },
+      "rocketmq": {
+        "version": "4.x",
+        "enabled": true
+      }
+    }
+  }
+}
